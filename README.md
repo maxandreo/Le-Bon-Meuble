@@ -9,9 +9,12 @@ npm run start:server
 ng serve
 
 # Create Database MongoDB
-With Studio3T or Robot3T create database named as you want
-In app.js line 13 paste the name of your database
+With Studio3T or Robot3T create database named as you want.
+In app.js line 13 paste the name of your database.
 
+# Use API Google Maps
+At https://console.developers.google.com/ create account -> create new project -> create identifiant and get a new API key.
+Paste your API key in annonceAPI.js line 8, same in userAPI.js line 10.
 
 -----------------------------------------------
 
