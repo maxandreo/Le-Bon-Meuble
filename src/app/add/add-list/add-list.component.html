@@ -1,0 +1,167 @@
+<nav class="chemin">
+  <div class="align-items container">
+    <a [routerLink]="['/']" routerLinkActive="router-link-active">Accueil</a
+    >&nbsp; / &nbsp;
+    <p>Rechercher une annonce</p>
+  </div>
+  >
+</nav>
+<div style="width:80%;" class="container">
+  <!--Categorie-->
+  <div style="padding-top: 50px" class="row">
+    <div class="col s12">
+      <div class="card">
+        <div class="card-content">
+          <h6 class="card-label">Que recherchez vous ?</h6>
+
+          <div class="flex-between mt-1rem">
+            <!--Categorie-->
+            <mat-form-field>
+              <mat-label>Catégories</mat-label>
+              <mat-select
+                [(ngModel)]="selectedCategorie"
+                (selectionChange)="onSelectedFilter($event)"
+              >
+                <mat-option [value]="touteCategories">{{
+                  touteCategories
+                }}</mat-option>
+                <mat-option
+                  *ngFor="let categorie of categories"
+                  [value]="categorie._id"
+                >
+                  {{ categorie.nom }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <!--Materiaux-->
+            <mat-form-field>
+              <mat-label>Materiaux</mat-label>
+              <mat-select
+                [(ngModel)]="selectedMateriau"
+                (selectionChange)="onSelectedFilter($event)"
+              >
+                <mat-option [value]="touteMateriaux">{{
+                  touteMateriaux
+                }}</mat-option>
+                <mat-option
+                  *ngFor="let materiau of materiaux"
+                  [value]="materiau._id"
+                >
+                  {{ materiau.nom }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <!--Etat-->
+            <mat-form-field>
+              <mat-label>Etat</mat-label>
+              <mat-select
+                [(ngModel)]="selectedEtat"
+                (selectionChange)="onSelectedFilter($event)"
+              >
+                <mat-option [value]="touteEtats">{{ touteEtats }}</mat-option>
+                <mat-option *ngFor="let etat of etats" [value]="etat._id">
+                  {{ etat.nom }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <!--Dimensions-->
+          </div>
+
+          <!-- Localisation -->
+          <div class="flex-between">
+            <!-- SearchBar -->
+            <app-search-bar
+              style="margin-top: 3px;margin-right:30px"
+              class="width-50 "
+              (selectedOption)="onSelectedFilter($event)"
+            ></app-search-bar>
+            <mat-form-field class="width-50" style="margin-left:30px">
+              <mat-icon matPrefix>room</mat-icon>
+              <input
+                (click)="showSelectLoc = true"
+                [(ngModel)]="adress"
+                (select)="setAddress($event)"
+                google-place
+                matInput
+                value="Toute la France"
+                placeholder="Saisissez une localisation"
+              />
+            </mat-form-field>
+          </div>
+          <div *ngIf="showSelectLoc">
+            <mat-card class="customCard">
+              <div class="card-label">
+                <button
+                  style="text-transform: initial !important;"
+                  mat-stroked-button
+                  type="button"
+                  (click)="findme()"
+                  class="mb-5 bold btn-margin btn full-width"
+                >
+                  <i
+                    style="position:absolute; left: 20px"
+                    class="material-icons"
+                  >
+                    location_searching
+                  </i>
+                  Rechercher autour de moi
+                </button>
+                <button
+                  style="text-transform: initial !important;margin-top:1rem"
+                  mat-stroked-button
+                  type="button"
+                  class="full-width"
+                  (click)="zoomFrance()"
+                >
+                  <img
+                    style="position:absolute; left: 20px"
+                    height="25px"
+                    src="../../../assets/img/map/france (1).png"
+                    alt=""
+                  />
+                  Toute la France
+                </button>
+              </div>
+              <div class="flex-around">
+                <button
+                  (click)="showSelectLoc = false"
+                  mat-stroked-button
+                  type="button"
+                >
+                  Fermer
+                </button>
+                <button
+                  style="color:#E98C22"
+                  (click)="clearValueLocalisation()"
+                  mat-stroked-button
+                  type="button"
+                >
+                  Effacer
+                </button>
+              </div>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex-between">
+    <app-add-card
+      style="width: 60%"
+      *ngIf="adds.length > 0"
+      [adds]="adds"
+    ></app-add-card>
+    <div style="margin:auto;padding-bottom:50px" *ngIf="adds.length === 0">
+      <h6>Aucune annonce disponible pour cette recherche</h6>
+    </div>
+    <app-map
+      #mapComponent
+      style="width: 40%;height:100%!important; border: 5px solid #C4BDAC; border-radius:5px;margin-top:5px !important"
+      *ngIf="adds.length > 0"
+      [adds]="adds"
+      [isPageSearch]="isPageSearch"
+    ></app-map>
+  </div>
+</div>
+<div class="bottom-block"></div>
+<app-footer></app-footer>

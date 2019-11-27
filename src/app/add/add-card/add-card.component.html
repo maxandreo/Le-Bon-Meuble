@@ -1,0 +1,45 @@
+<div class="box">
+  <div
+    style="
+    margin-right: 20px;"
+    class="card"
+    *ngFor="let add of adds; let i = index"
+  >
+    <div class="card-image waves-effect waves-block waves-light">
+      <img class="activator" [src]="add.image" />
+    </div>
+    <div class="card-content">
+      <span
+        style="font-size: 15px"
+        class="card-title activator grey-text text-darken-4"
+        >{{ add.titre }}<i class="material-icons right">more_vert</i></span
+      >
+      <div
+        style="    font-weight: 600;
+      margin-bottom: 10px;
+      color: red;    position: relative;
+    left: 0px;"
+      >
+        {{ add.prix }} €
+      </div>
+      <div class="flex-between">
+        <button style="color:#E98C22" mat-stroked-button type="button">
+          Voir
+        </button>
+        <p class="align-items">
+          <i class="small material-icons">account_circle</i>&nbsp;{{
+            add.nomUser
+          }}
+        </p>
+      </div>
+    </div>
+    <div class="card-reveal">
+      <span class="card-title grey-text text-darken-4"
+        >{{ add.titre }}<i class="material-icons right">close</i></span
+      >
+      <p>
+        {{ add.description }}
+      </p>
+    </div>
+  </div>
+</div>

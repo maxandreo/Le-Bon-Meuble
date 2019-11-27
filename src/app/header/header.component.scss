@@ -1,0 +1,70 @@
+@import './../../variables.scss';
+
+#modal1 {
+  z-index: 3;
+}
+
+* {
+  color: $text-color;
+}
+.nav-wrapper,
+nav,
+ul,
+li {
+  background-color: #fff !important;
+}
+.nav-container {
+  height: 90px;
+  border-bottom: 1px solid $text-color;
+}
+
+.nav-wrapper {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+}
+.brand-logo {
+  display: flex;
+  position: absolute;
+  left: 80px;
+}
+nav {
+  position: fixed;
+  top: 0;
+  z-index: 2;
+  .menu a {
+    font-size: 18px;
+  }
+}
+
+ul,
+li,
+a {
+  opacity: 1;
+}
+
+.nav-right {
+  position: absolute;
+  right: 50px;
+  font-weight: 500;
+}
+.nav-right a:last-child {
+  color: $btn-bgd !important;
+}
+
+.material-icons {
+  font-size: 35px;
+}
+
+.last-li {
+  padding-left: 10px;
+  padding-right: 50px;
+}
+
+@media only screen and (max-width: 992px) {
+  nav .brand-logo {
+    left: 0 !important;
+    -webkit-transform: none !important;
+    transform: none !important;
+  }
+}

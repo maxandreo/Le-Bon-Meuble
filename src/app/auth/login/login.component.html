@@ -1,0 +1,60 @@
+<h3 class="center-align">Connexion</h3>
+<p>Saisissez votre e-mail et votre mot de passe pour accéder</p>
+<form [formGroup]="loginForm" (submit)="onLogin()">
+  <mat-form-field>
+    <input
+      matInput
+      name="email"
+      type="email"
+      formControlName="email"
+      placeholder="Adresse électronique"
+    />
+    <ng-container *ngFor="let error of error_messages.email">
+      <mat-error
+        class="error-messagesLogin"
+        *ngIf="
+          loginForm.get('email').hasError(error.type) &&
+          (loginForm.get('email').dirty || loginForm.get('email').touched)
+        "
+      >
+        {{ error.message }}</mat-error
+      >
+    </ng-container>
+  </mat-form-field>
+  <mat-form-field class="mt-20">
+    <input
+      matInput
+      name="password"
+      [type]="hide ? 'password' : 'text'"
+      formControlName="password"
+      placeholder="Mot de passe"
+    />
+    <mat-icon matSuffix (click)="hide = !hide">{{
+      hide ? 'visibility_off' : 'visibility'
+    }}</mat-icon>
+    <ng-container *ngFor="let error of error_messages.password">
+      <mat-error
+        class="error-messagesLogin"
+        *ngIf="
+          loginForm.get('password').hasError(error.type) &&
+          (loginForm.get('password').dirty || loginForm.get('password').touched)
+        "
+      >
+        {{ error.message }}</mat-error
+      >
+    </ng-container>
+  </mat-form-field>
+  <div class="center-align mt-20">
+    <button class="btn-margin waves-effect btn" type="submit">
+      S'identifier
+    </button>
+    <p>Vous n'avez pas de compte ?</p>
+    <button
+      type="button"
+      (click)="openSignup()"
+      class="waves-effect btn blue-grey darken-4"
+    >
+      Créer un compte
+    </button>
+  </div>
+</form>

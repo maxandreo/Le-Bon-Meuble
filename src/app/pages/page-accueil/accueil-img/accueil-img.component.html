@@ -1,0 +1,149 @@
+<div class="top-header container">
+  <div class="carte text-center" style="width: 500px;">
+    <h4>Besoin de renouveler votre mobilier ?</h4>
+    <p>
+      Vous avez des meubles que vous n'avez plus envie d'avoir chez vous ou vous
+      cherchez de quoi renouveler votre intérieur :
+    </p>
+    <p><strong>Déposez ou trouvez votre annonce partout en France</strong></p>
+    <div class="flex-center" style="padding-top: 10px; padding-bottom: 10px">
+      <a
+        style="margin-right:30px"
+        [routerLink]="['/rechercher']"
+        class="bold capitalize waves-effect waves-light btn"
+        >Rechercher</a
+      >
+      <a
+        [routerLink]="['/deposer']"
+        routerLinkActive="router-link-active"
+        class="bold capitalize waves-effect waves-light btn"
+        >Déposer une annonce</a
+      >
+    </div>
+  </div>
+  <div class="img-accueil">
+    <img
+      src="./../../../assets/img/web-design/showroom-5-1516997.jpg"
+      style="width: 800px"
+    />
+  </div>
+</div>
+<div class="fond-bois">
+  <div class="carte register text-center" style="width: 500px; top:-30px">
+    <h4>Inscris toi maintenant et commence à chiner</h4>
+    <form
+      autocomplete="on"
+      class="col s12"
+      [formGroup]="signupForm"
+      (ngSubmit)="onSignup()"
+    >
+      <p class="flex-between">
+        <mat-form-field>
+          <input
+            autocomplete="off"
+            matInput
+            name="nomUser"
+            type="text"
+            formControlName="nomUser"
+            placeholder="Nom"
+          />
+          <ng-container *ngFor="let error of error_messages.nomUser">
+            <mat-error
+              class="error-messagesLogin"
+              *ngIf="
+                signupForm.get('nomUser').hasError(error.type) &&
+                (signupForm.get('nomUser').dirty ||
+                  signupForm.get('nomUser').touched)
+              "
+            >
+              {{ error.message }}</mat-error
+            >
+          </ng-container>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input
+            matInput
+            name="email"
+            type="email"
+            formControlName="email"
+            placeholder="Email"
+          />
+          <ng-container *ngFor="let error of error_messages.email">
+            <mat-error
+              class="error-messagesLogin"
+              *ngIf="
+                signupForm.get('email').hasError(error.type) &&
+                (signupForm.get('email').dirty ||
+                  signupForm.get('email').touched)
+              "
+            >
+              {{ error.message }}</mat-error
+            >
+          </ng-container>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <input
+            google-city-postal-code
+            (select)="setAddressCity($event)"
+            matInput
+            name="ville"
+            type="text"
+            formControlName="ville"
+            placeholder="Ville ou Code postal"
+          />
+          <ng-container *ngFor="let error of error_messages.ville">
+            <mat-error
+              class="error-messagesLogin"
+              *ngIf="
+                signupForm.get('ville').hasError(error.type) &&
+                (signupForm.get('ville').dirty ||
+                  signupForm.get('ville').touched)
+              "
+            >
+              {{ error.message }}</mat-error
+            >
+          </ng-container>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field>
+          <input
+            autocomplete="on"
+            matInput
+            name="password"
+            formControlName="password"
+            [type]="hide ? 'password' : 'text'"
+            placeholder="Mot de passe"
+          />
+          <mat-icon matSuffix (click)="hide = !hide">{{
+            hide ? 'visibility_off' : 'visibility'
+          }}</mat-icon>
+          <ng-container *ngFor="let error of error_messages.password">
+            <mat-error
+              class="error-messagesLogin"
+              *ngIf="
+                signupForm.get('password').hasError(error.type) &&
+                (signupForm.get('password').dirty ||
+                  signupForm.get('password').touched)
+              "
+            >
+              {{ error.message }}</mat-error
+            >
+          </ng-container>
+        </mat-form-field>
+      </p>
+      <button
+        mat-stroked-button
+        class="bold capitalize btn-margin waves-effect waves-light btn"
+        type="submit"
+      >
+        Créer un compte
+      </button>
+    </form>
+  </div>
+</div>
+

@@ -1,0 +1,80 @@
+@import './../../../variables.scss';
+.ajouter {
+  margin-left: 40%;
+  margin-right: auto;
+}
+
+input[type='file'] {
+  visibility: hidden;
+}
+
+.image-preview {
+  height: 280px;
+  width: 100%;
+  padding-bottom: 15px;
+}
+
+.image-preview img {
+  height: 100%;
+  width: auto;
+  margin: auto;
+  border-radius: 3px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.photo-preview {
+  height: 300px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  display: flex;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  margin: 10px 0;
+}
+.button-image {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.button-image:focus,
+.button-image:active {
+  background-color: $btn-bgd;
+  color: white;
+}
+
+.button-image2 {
+  position: relative;
+  z-index: 1;
+  top: 50%;
+}
+.button-image2:focus,
+.button-image2:active {
+  background-color: $btn-bgd;
+  color: white;
+}
+
+.map {
+  width: 50%;
+
+  img {
+    border: 1px solid $text-color;
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
+.info-loc {
+  font-size: 12px;
+  color: $text-color;
+  background-color: #ddeffd;
+  border-radius: 8px;
+  padding: 10px;
+}

@@ -1,0 +1,7 @@
+input:not([read-only]),
+input:focus:not([read-only]) {
+  border-bottom: none !important;
+  box-shadow: none !important;
+  margin-bottom: -10px !important;
+  padding-bottom: 0px !important;
+}

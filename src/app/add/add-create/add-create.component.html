@@ -1,0 +1,458 @@
+<nav class="chemin">
+  <div class="align-items container">
+    <a [routerLink]="['/']" routerLinkActive="router-link-active">Accueil</a
+    >&nbsp; / &nbsp;
+    <p>Déposer une annonce</p>
+  </div>
+  >
+</nav>
+<div class=" container">
+  <!--Début Form-->
+  <form [formGroup]="form" (ngSubmit)="ajouterAdd()">
+    <h4 class="form-title">Déposer une annonce</h4>
+    <div class="center-align">
+      <!--Image-->
+      <div class="row">
+        <div class="col s12">
+          <div class="card photo-preview">
+            <button
+              *ngIf="this.urls.length == 0"
+              class="button-image"
+              mat-stroked-button
+              type="button"
+              (click)="filePicker.click()"
+            >
+              <i class="material-icons">add_a_photo</i>
+              Choisir une photo
+            </button>
+            <!-- *ngIf="
+                      imagePreview !== '' &&
+                      imagePreview &&
+                      form.get('image').valid
+                    " -->
+            <div [ngClass]="{ flex: this.urls.length > 0 }">
+              <div class="image-preview">
+                <img
+                  *ngFor="let url of urls"
+                  [src]="url"
+                  [alt]="form.value.titre"
+                />
+              </div>
+              <button
+                *ngIf="this.urls.length > 0 && this.urls.length < 5"
+                class="button-image2"
+                mat-stroked-button
+                type="button"
+                (click)="filePicker.click()"
+              >
+                <i class="material-icons">add_a_photo</i>
+              </button>
+              <p class="button-image2" *ngIf="this.urls.length >= 5">
+                5 sur 5
+              </p>
+            </div>
+            <input #filePicker type="file" (change)="onImagePicked($event)" />
+          </div>
+        </div>
+      </div>
+
+      <!--Categorie-->
+      <div class="row">
+        <div class="col s12">
+          <div class="card">
+            <div class="card-content">
+              <h6 class="card-label">Sélectionne une catégorie</h6>
+              <mat-form-field>
+                <mat-label>Catégorie</mat-label>
+                <mat-select name="categorie" formControlName="categorie">
+                  <mat-option
+                    *ngFor="let categorie of categories"
+                    [value]="categorie._id"
+                  >
+                    {{ categorie.nom }}
+                  </mat-option>
+                </mat-select>
+                <ng-container *ngFor="let error of error_messages.categorie">
+                  <mat-error
+                    class="error-messages"
+                    *ngIf="
+                      form.get('categorie').hasError(error.type) &&
+                      (form.get('categorie').dirty ||
+                        form.get('categorie').touched)
+                    "
+                  >
+                    {{ error.message }}</mat-error
+                  >
+                </ng-container>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--Description-->
+      <div class="row">
+        <div class="col s12">
+          <div class="card">
+            <div class="card-content">
+              <h6 class="card-label">Décris ton article</h6>
+              <mat-form-field>
+                <input
+                  #Titre
+                  matInput
+                  name="titre"
+                  type="text"
+                  placeholder="Titre *"
+                  formControlName="titre"
+                  maxlength="20"
+                />
+                <mat-hint [ngStyle]="{ color: getRedTitre(Titre) }" align="end"
+                  >{{ Titre.value?.length || 0 }}/20
+                </mat-hint>
+                <ng-container *ngFor="let error of error_messages.titre">
+                  <mat-error
+                    class="error-messages"
+                    *ngIf="
+                      form.get('titre').hasError(error.type) &&
+                      (form.get('titre').dirty || form.get('titre').touched)
+                    "
+                  >
+                    {{ error.message }}</mat-error
+                  >
+                </ng-container>
+              </mat-form-field>
+              <mat-form-field class="mt-20">
+                <textarea
+                  #Desc
+                  matInput
+                  rows="10"
+                  name="description"
+                  placeholder="Description *"
+                  formControlName="description"
+                  maxlength="200"
+                ></textarea>
+                <mat-hint [ngStyle]="{ color: getRedDesc(Desc) }" align="end"
+                  >{{ Desc.value?.length || 0 }}/200</mat-hint
+                >
+                <ng-container *ngFor="let error of error_messages.description">
+                  <mat-error
+                    class="error-messages"
+                    *ngIf="
+                      form.get('description').hasError(error.type) &&
+                      (form.get('description').dirty ||
+                        form.get('description').touched)
+                    "
+                  >
+                    {{ error.message }}</mat-error
+                  >
+                </ng-container>
+              </mat-form-field>
+              <mat-form-field class="mt-20">
+                <mat-label>Etat</mat-label>
+                <mat-select name="etat" formControlName="etat">
+                  <mat-option *ngFor="let etat of etats" [value]="etat._id">
+                    {{ etat.nom }}
+                  </mat-option>
+                </mat-select>
+                <ng-container *ngFor="let error of error_messages.etat">
+                  <mat-error
+                    class="error-messages"
+                    *ngIf="
+                      form.get('etat').hasError(error.type) &&
+                      (form.get('etat').dirty || form.get('etat').touched)
+                    "
+                  >
+                    {{ error.message }}</mat-error
+                  >
+                </ng-container>
+              </mat-form-field>
+
+              <mat-form-field class="mt-20">
+                <mat-label>Materiau</mat-label>
+                <mat-select name="materiau" formControlName="materiau">
+                  <mat-option
+                    *ngFor="let materiau of materiaux"
+                    [value]="materiau._id"
+                  >
+                    {{ materiau.nom }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--Dimensions-->
+      <div class="row">
+        <div class="col s12">
+          <div class="card">
+            <div class="card-content">
+              <h6 class="card-label">Dimensions</h6>
+              <div class="flex-around">
+                <mat-form-field class="width3 pr-5">
+                  <input
+                    #Hauteur
+                    matInput
+                    name="hauteur"
+                    type="number"
+                    placeholder="Hauteur *"
+                    formControlName="hauteur"
+                  />
+                  <span class="suffix" matSuffix> cm</span>
+                  <ng-container *ngFor="let error of error_messages.hauteur">
+                    <mat-error
+                      class="error-messages"
+                      *ngIf="
+                        form.get('hauteur').hasError(error.type) &&
+                        (form.get('hauteur').dirty ||
+                          form.get('hauteur').touched)
+                      "
+                    >
+                      {{ error.message }}</mat-error
+                    >
+                  </ng-container>
+                </mat-form-field>
+
+                <mat-form-field class="width3 pr-5">
+                  <input
+                    #Largeur
+                    matInput
+                    name="largeur"
+                    type="number"
+                    placeholder="Largeur *"
+                    formControlName="largeur"
+                  />
+                  <span class="suffix" matSuffix> cm</span>
+                  <ng-container *ngFor="let error of error_messages.largeur">
+                    <mat-error
+                      class="error-messages"
+                      *ngIf="
+                        form.get('largeur').hasError(error.type) &&
+                        (form.get('largeur').dirty ||
+                          form.get('largeur').touched)
+                      "
+                    >
+                      {{ error.message }}</mat-error
+                    >
+                  </ng-container>
+                </mat-form-field>
+                <mat-form-field class="width3">
+                  <input
+                    #Profondeur
+                    matInput
+                    name="profondeur"
+                    type="number"
+                    placeholder="Profondeur"
+                    formControlName="profondeur"
+                  />
+                  <span class="suffix" matSuffix> cm</span>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--Localisation-->
+      <div class="row">
+        <div class="col s12">
+          <div class="card">
+            <div class="card-content">
+              <h6 class="card-label">Localisation</h6>
+              <div class="flex-around">
+                <div style="width: 40%">
+                  <button
+                    (click)="clearValueLocalisation()"
+                    style="position:relative;left:0;margin-right: 1.5rem;"
+                    mat-stroked-button
+                    type="button"
+                  >
+                    Effacer
+                  </button>
+                  <button
+                    mat-stroked-button
+                    type="button"
+                    (click)="findme()"
+                    class="mb-5 bold capitalize btn-margin btn"
+                  >
+                    <i class="material-icons">
+                      location_searching
+                    </i>
+                    Géolocalisation
+                  </button>
+                  <p style="padding-top: 1.5rem">
+                    <mat-form-field>
+                      <input
+                        google-city-postal-code
+                        (select)="setAddressCity($event)"
+                        #AdressVille
+                        matInput
+                        type="text"
+                        name="adressVille"
+                        placeholder="Ville ou Code postal *"
+                        formControlName="adressVille"
+                      />
+                      <ng-container
+                        *ngFor="let error of error_messages.adressVille"
+                      >
+                        <mat-error
+                          class="error-messages"
+                          *ngIf="
+                            form.get('adressVille').hasError(error.type) &&
+                            (form.get('adressVille').dirty ||
+                              form.get('adressVille').touched)
+                          "
+                        >
+                          {{ error.message }}</mat-error
+                        >
+                      </ng-container>
+                    </mat-form-field>
+                  </p>
+                  <p>
+                    <mat-form-field>
+                      <input
+                        (select)="setAddress($event)"
+                        google-place
+                        #AdressNum
+                        matInput
+                        name="adressNum"
+                        placeholder="Voie ou numéro + voie"
+                        formControlName="adress"
+                      />
+                    </mat-form-field>
+                  </p>
+                  <div class="info-loc">
+                    <p>
+                      Complétez votre adresse et les personnes utilisant la
+                      recherche autour de soi trouveront plus facilement votre
+                      annonce. Si vous ne souhaitez pas renseigner votre adresse
+                      exacte, indiquez seulement votre ville ou code postal
+                    </p>
+                  </div>
+                </div>
+                <div class="map">
+                  <img
+                    *ngIf="
+                      !latitude &&
+                      !longitude &&
+                      (!form.get('adressVille').value &&
+                        !form.get('adress').value)
+                    "
+                    src="./../../../assets/img/map/carte-france/retouche.png"
+                    alt=""
+                  />
+                  <app-map
+                    #mapComponent
+                    *ngIf="
+                      form.get('adressVille').value ||
+                      form.get('adress').value ||
+                      (latitude && longitude) ||
+                      (form.get('adressVille').value &&
+                        form.get('adress').value)
+                    "
+                    [latitude]="latitude"
+                    [longitude]="longitude"
+                  ></app-map>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--Infos supp-->
+      <div class="row">
+        <div class="col s12">
+          <div class="card">
+            <div class="card-content">
+              <h6 class="card-label">Infos supplémentaires</h6>
+              <div class="flex-around">
+                <mat-slide-toggle
+                  (change)="valueToggleEnvoi($event)"
+                  formControlName="okEnvoi"
+                  color="primary"
+                  >Ok pour envoi
+                </mat-slide-toggle>
+                <mat-slide-toggle
+                  (change)="valueToggleRetrait($event)"
+                  formControlName="okRetraitdomicile"
+                  color="primary"
+                  >Ok pour retrait à domicile
+                </mat-slide-toggle>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--Quantité & prix-->
+      <div class="row">
+        <div class="col s12">
+          <div class="card">
+            <div class="card-content">
+              <h6 class="card-label">Quantité et Prix</h6>
+              <div class="flex-around">
+                <mat-form-field class="width2">
+                  <input
+                    #Quantité
+                    matInput
+                    name="quantite"
+                    formControlName="quantite"
+                    type="number"
+                    placeholder="Quantité *"
+                  />
+                  <ng-container *ngFor="let error of error_messages.quantite">
+                    <mat-error
+                      class="error-messages2"
+                      *ngIf="
+                        form.get('quantite').hasError(error.type) &&
+                        (form.get('quantite').dirty ||
+                          form.get('quantite').touched)
+                      "
+                    >
+                      {{ error.message }}</mat-error
+                    >
+                  </ng-container>
+                </mat-form-field>
+                <mat-form-field class="width2">
+                  <input
+                    #Prix
+                    matInput
+                    name="prix"
+                    type="number"
+                    formControlName="prix"
+                    placeholder="Prix *"
+                  />
+                  <mat-icon class="suffix" matSuffix>euro_symbol</mat-icon>
+                  <ng-container *ngFor="let error of error_messages.prix">
+                    <mat-error
+                      class="error-messages"
+                      *ngIf="
+                        form.get('prix').hasError(error.type) &&
+                        (form.get('prix').dirty || form.get('prix').touched)
+                      "
+                    >
+                      {{ error.message }}</mat-error
+                    >
+                  </ng-container>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style="display:flex;justify-content: flex-end;
+      padding-right: 0.75rem;
+      padding-bottom: 2.5rem;"
+      >
+        <button
+          class="waves-effect btn"
+          type="submit"
+        >
+          Valider mon annonce
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+<app-footer></app-footer>

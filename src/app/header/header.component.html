@@ -1,0 +1,42 @@
+<nav>
+  <div class="nav-container">
+    <div class="nav-wrapper">
+      <a routerLink="/" class="brand-logo"
+        ><img
+          src="./../../assets/img/logo/LBM-blanc.png"
+          style="width:175px; height: auto;"
+      /></a>
+
+      <ul class="menu flex-center">
+        <li class="align-items mr-3rem">
+          <a routerLink="/">Accueil</a>
+        </li>
+
+        <li class="align-items mr-3rem">
+          <a (click)="goToRechercher()">Rechercher</a>
+        </li>
+        <li class="align-items">
+          <a routerLink="/deposer">Déposer une annonce</a>
+        </li>
+        <!--  User non Connecté-->
+        <li class="nav-right align-items" *ngIf="!userIsAuthenticated">
+          <a (click)="openLogin()">Connexion</a>
+          <a (click)="openSignup()">Créer un compte</a>
+        </li>
+        <!--  User Connecté-->
+        <div class="nav-right">
+          <li *ngIf="userIsAuthenticated">
+            <a [matMenuTriggerFor]="menu">
+              <i class="large material-icons">account_circle</i></a
+            >
+          </li>
+          <li class="last-li" *ngIf="userIsAuthenticated">{{ nomUser }}</li>
+          <mat-menu #menu="matMenu">
+            <a routerLink="/user" mat-menu-item>Mon Compte</a>
+            <button (click)="onLogout()" mat-menu-item>Se Déconnecter</button>
+          </mat-menu>
+        </div>
+      </ul>
+    </div>
+  </div>
+</nav>

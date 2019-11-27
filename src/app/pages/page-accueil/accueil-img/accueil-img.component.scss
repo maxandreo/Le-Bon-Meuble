@@ -1,0 +1,46 @@
+.carte {
+  border-radius: 15px;
+  position: relative;
+  top: 50px;
+  left: 0;
+}
+
+.img-accueil img {
+  border-radius: 15px;
+}
+
+.img-accueil {
+  position: relative;
+  top: -300px;
+  right: -200px;
+  z-index: -100;
+}
+
+.fond-bois {
+  position: relative;
+  top: -200px;
+  height: 450px;
+  background-image: url('./../../../../assets/img/web-design/crack-in-furniture-1234004-1920x1440.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  .register {
+    border-radius: 8px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  form > div {
+    padding-top: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
+
+input:not([read-only]),
+input:focus:not([read-only]) {
+  border-bottom: none !important;
+  box-shadow: none !important;
+  margin-bottom: -10px !important;
+  padding-bottom: 0px !important;
+}

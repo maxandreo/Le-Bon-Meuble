@@ -1,0 +1,34 @@
+<form>
+  <mat-form-field>
+    <mat-icon matPrefix>search</mat-icon>
+    <mat-chip-list #chipList>
+      <mat-chip
+        *ngFor="let option of this.addService.searchOption"
+          (removed)="removeOption(option)"
+      >
+        <span>{{ option.titre }}</span>
+
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+      <input
+        #autocompleteInput
+        type="search"
+        placeholder="Rechercher par titre"
+        aria-label="Number"
+        matInput
+        [formControl]="myControl"
+        [matAutocomplete]="auto"
+        [matChipInputFor]="chipList"
+      />
+    </mat-chip-list>
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+      <mat-option
+        *ngFor="let option of autoCompleteList"
+        [value]="option"
+        (onSelectionChange)="filterPostList($event)"
+      >
+        {{ option.titre }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>

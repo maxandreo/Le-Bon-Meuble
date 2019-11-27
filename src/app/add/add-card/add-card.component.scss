@@ -1,0 +1,8 @@
+.box {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.box > * {
+  flex: 1 1 200px;
+}
