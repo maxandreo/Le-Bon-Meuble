@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt');
 
 // Create client with a Promise constructor
 const googleMapsClient = require('@google/maps').createClient({
-  key: 'AIzaSyAXBYMt0VMojBLnKEUyX1oB32Twb6eSKWo',
+  key: 'paste-your-key',
   Promise: Promise
 });
 const User = require('../models/user');
