@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 // AIzaSyC5sIMFkWbde-Y1muILoVXgVL1RdQb15-s
 // Create client with a Promise constructor
 const googleMapsClient = require('@google/maps').createClient({
-  key: 'AIzaSyAXBYMt0VMojBLnKEUyX1oB32Twb6eSKWo',
+  key: 'paste-your-key',
   Promise: Promise
 });
 
